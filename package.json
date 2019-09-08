@@ -1,0 +1,19 @@
+{
+  "name": "natours-node",
+  "version": "1.0.0",
+  "description": "Learning Node.js, Express, and MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nick-rudenko/natours-node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nick-rudenko/natours-node/issues"
+  },
+  "homepage": "https://github.com/nick-rudenko/natours-node#readme"
+}
