@@ -19,6 +19,9 @@
   "dependencies": {
     "express": "^4.17.1"
   },
+  "engines": {
+    "node": ">=8.3.0"
+  },
   "devDependencies": {
     "eslint": "^6.3.0",
     "eslint-config-airbnb": "^18.0.1",
