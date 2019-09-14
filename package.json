@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/nick-rudenko/natours-node#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "morgan": "^1.9.1"
   },
   "engines": {
     "node": ">=8.3.0"
