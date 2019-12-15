@@ -5,6 +5,13 @@ const handleCastErrorDB = err => {
   return new AppError(message, 400);
 };
 
+const handleDuplicateFieldsDB = err => {
+  // find the actual field value
+  const value = err.errmsg.match(/(["'])(?:(?=(\\?))\2.)*?\1/)[0];
+  const message = `Duplicate field value: ${value}. Please use another value!`;
+  return new AppError(message, 400);
+};
+
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -46,8 +53,10 @@ module.exports = (err, req, res, next) => {
     // copy error body in order to not override the original "err"
     let error = { ...err };
 
-    // handle Mongoose cast errors 
+    // handle Mongoose cast errors
     if (error.name === 'CastError') error = handleCastErrorDB(error);
+    // handle duplicate fields
+    if (error.code === 11000) error = handleDuplicateFieldsDB(error);
 
     // NOTE: "err" is replaced with "error" copy variable
     sendErrorProd(error, res);
