@@ -1,3 +1,10 @@
+const AppError = require('../utils/appError');
+
+const handleCastErrorDB = err => {
+  const message = `Invalid ${err.path}: ${err.value}`;
+  return new AppError(message, 400);
+};
+
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -36,6 +43,13 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === 'development') {
     sendErrorDev(err, res);
   } else if (process.env.NODE_ENV === 'production') {
-    sendErrorProd(err, res);
+    // copy error body in order to not override the original "err"
+    let error = { ...err };
+
+    // handle Mongoose cast errors 
+    if (error.name === 'CastError') error = handleCastErrorDB(error);
+
+    // NOTE: "err" is replaced with "error" copy variable
+    sendErrorProd(error, res);
   }
 };
